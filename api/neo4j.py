@@ -3,6 +3,7 @@ from flask import Flask, current_app
 # tag::import[]
 from neo4j import GraphDatabase
 # end::import[]
+import os
 
 """
 Initiate the Neo4j Driver
@@ -10,9 +11,15 @@ Initiate the Neo4j Driver
 # tag::initDriver[]
 def init_driver(uri, username, password):
     # TODO: Create an instance of the driver here
-    current_app.driver = None
+    NEO4J_URI=os.getenv('NEO4J_URI')
+    NEO4J_USERNAME=os.getenv('NEO4J_USERNAME')
+    NEO4J_PASSWORD=os.getenv('NEO4J_PASSWORD')
+    current_app.driver = GraphDatabase.driver(
+        NEO4J_URI,
+        auth=(NEO4J_USERNAME, NEO4J_PASSWORD)
+    )
 
-    return None
+    return current_app
 # end::initDriver[]
 
 
