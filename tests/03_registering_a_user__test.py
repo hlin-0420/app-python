@@ -26,6 +26,8 @@ def test_register_user(app):
     with app.app_context():
         driver = get_driver()
 
+        print(f"SECRET Token: {os.environ.get('JWT_SECRET')}")
+
         dao = AuthDAO(driver, os.environ.get('JWT_SECRET'))
 
         user = dao.register(email, password, name)
